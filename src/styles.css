@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'ag-grid-community/dist/styles/ag-grid.css';
+@import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+
+
+.header_color {
+    background-color: orange;
+    color: white;
+}
+
+.ag-row {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 11px !important;
+    color: black !important;
+}
+
+.ag-row:nth-child(odd) {
+    background-color: white !important;
+}
+
+.ag-row:nth-child(even) {
+    background-color: #cccccc !important;
+}
+
+.ag-row-selected:not(.ag-row-group) {
+    background-color: #ffa500 !important;
+}
+
+.ag-row-hover:not(.ag-row-group) {
+    background: #e66f00 !important;
+}
+
+.ag-header-cell {
+    font-size: 11px !important;
+}
+
+.ag-cell, .ag-header-cell {
+    padding: 0px 0px 0px 2px !important;
+}

@@ -1,0 +1,160 @@
+<div class="row">
+  <div class="col-6">
+    <ag-grid-angular
+      style="height: 100vh"
+      class="ag-theme-alpine"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [rowData]="rowData"
+      [animateRows]="true"
+      (gridReady)="onGridReady($event)"
+      [colResizeDefault]="true"
+      [suppressAutoSize]="true"
+      rowSelection="single"
+      (selectionChanged)="onSelectionChanged($event)"
+      rowHeight="20"
+      headerHeight="25"
+    ></ag-grid-angular>
+  </div>
+  <div class="col-6">
+    <agm-map style="height: 100vh;"
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="zoom"
+      [disableDefaultUI]="false"
+      (mapClick)="mapClicked()">
+
+      <agm-marker-cluster imagePath="./assets/m" maxZoom="7">
+        <agm-marker 
+          *ngFor="let marker of rowData; let i = index"
+          (markerClick)="clickedMarker($event,marker,i)"
+          [latitude]="marker.upos ? marker.upos.plat : marker.pla"
+          [longitude]="marker.upos? marker.upos.plon : marker.plo"
+          [label]="marker.uco | slice:-3" >
+            
+          <agm-info-window *ngIf="markerSelected">
+            <div style="position: relative; padding-right: 11px; padding-left: 11px; top: 1px;">
+              <div class="i-animation tab tab1" (click)="mapContextInfo(1)">
+                UBICACI&Oacute;N
+              </div>
+              <div class="i-animation tab tab2" (click)="mapContextInfo(2)">
+                VEHICULO
+              </div>
+              <div class="i-animation tab tab3" (click)="mapContextInfo(3)">
+                INTERNO
+              </div>
+            </div>
+            <div id="ubicacion" style="display: block; margin-left: 10px">
+              <table>
+                <tr>
+                  <td class="custom-cell"><b>ID</b></td>
+                  <td class="custom-cell">{{unitSelected.uco}}</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Nombre</b></td>
+                  <td class="custom-cell">{{unitSelected.una}}</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>&Uacute;ltima posici&oacute;n</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>&Uacute;ltima alarma</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Velocidad</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Lat/Long</b></td>
+                  <td class="custom-cell">{{unitSelected.pla}},{{unitSelected.plo}}</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Bater&iacute;a</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Direcci&oacute;n</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+              </table>
+            </div>                
+            <div id="vehiculo" style="display: none; margin-left: 10px">
+              <table>
+                <tr>
+                  <td class="custom-cell"><b>Modelo</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Marca</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Submarca</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Color</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Tipo</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Placas</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>VIN</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Observaciones</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+              </table>
+            </div>
+            <div id="interno" style="display: none; margin-left: 10px">
+              <table>
+                <tr>
+                  <td class="custom-cell"><b>Modelo</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>ID</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Nombre</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Serie</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>APN</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>N&uacute;mero</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Propietario</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>
+                <tr>
+                  <td class="custom-cell"><b>Operador</b></td>
+                  <td class="custom-cell">---</td>
+                </tr>                    
+              </table>
+            </div>               
+          </agm-info-window>        
+        </agm-marker>        
+      </agm-marker-cluster>      
+    </agm-map>
+  </div>
+</div>
